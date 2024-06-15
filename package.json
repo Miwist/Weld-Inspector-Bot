@@ -17,6 +17,7 @@
     "download": "^8.0.0",
     "fetch": "^1.1.0",
     "fs": "^0.0.1-security",
+    "jimp": "^0.22.12",
     "moment": "^2.29.4",
     "node-calendar": "^0.1.5",
     "node-fetch": "^3.3.2",

@@ -7,6 +7,7 @@ const {
   start_check,
 } = require("../../assets/text");
 const { send_photo } = require("../../buttons/buttons");
+const { check_photo } = require("../functions/checkWeld");
 
 let media_group_flag = [];
 
@@ -20,8 +21,8 @@ const botMessage = bot.on("message", async (msg) => {
   try {
     if (text == "/start") {
       bot.sendMessage(chatId, start_text, send_photo);
-    } else if (msg.photo) {
-      let file_id = msg.photo[msg.photo.length - 1].file_id;
+    } else if (msg.photo || msg.document) {
+      let file_id = msg.photo ? msg.photo[msg.photo.length - 1].file_id : msg.document.file_id;
       const file_url = await bot.getFileLink(file_id);
 
       if (file_url) {
@@ -39,27 +40,9 @@ const botMessage = bot.on("message", async (msg) => {
         } else {
           bot.sendMessage(chatId, start_check);
         }
+        check_photo(chatId, file_url);
       }
-    } else if (msg.document) {
-      let file_id = msg.document.file_id;
-      const file_url = await bot.getFileLink(file_id);
-
-      if (file_url) {
-        if (media_group_flag.length) {
-          let flag = false;
-          media_group_flag.forEach((id) => {
-            if (id == media_group_id) {
-              flag = true;
-            }
-          });
-          if (!flag) {
-            bot.sendMessage(chatId, start_check);
-          }
-        } else {
-          bot.sendMessage(chatId, start_check);
-        }
-      }
-    } else {
+    }  else {
       bot.sendMessage(chatId, undefined_text);
     }
     if (media_group_id) {

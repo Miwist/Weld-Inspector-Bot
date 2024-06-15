@@ -20,7 +20,7 @@ const botMessage = bot.on("message", async (msg) => {
 
   try {
     if (text == "/start") {
-      bot.sendMessage(chatId, start_text, send_photo);
+      bot.sendMessage(chatId, start_text);
     } else if (msg.photo || msg.document) {
       let file_id = msg.photo ? msg.photo[msg.photo.length - 1].file_id : msg.document.file_id;
       const file_url = await bot.getFileLink(file_id);

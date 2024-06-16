@@ -4,7 +4,6 @@ const fs = require("fs");
 const botCallback = bot.on("callback_query", async (msg, match) => {
   const data = msg.data;
   const chatId = msg.message.chat.id;
-  const msgId = msg.message.message_id;
 
   try {
     if (data == "send_photo") {

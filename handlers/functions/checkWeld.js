@@ -35,7 +35,6 @@ async function get_image_array(image_path) {
 }
 
 const check_photo = (chatId, photo) => {
-  let date_now = isDate();
 
   let image_array = get_image_array(photo).then((image_array) => {
     console.log(image_array);
@@ -55,7 +54,6 @@ const check_photo = (chatId, photo) => {
     })
     .then((res) => {
       let text = res.data;
-      // console.log(res.data);
       if (text) {
         bot.sendMessage(chatId, text);
       } else {

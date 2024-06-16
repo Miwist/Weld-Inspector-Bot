@@ -26,7 +26,6 @@ const botMessage = bot.on("message", async (msg) => {
       const file_url = await bot.getFileLink(file_id);
 
       if (file_url) {
-        // console.log(file_url);
         if (media_group_flag.length) {
           let flag = false;
           media_group_flag.forEach((id) => {

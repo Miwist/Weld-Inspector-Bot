@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { bot, isDate } = require("../../connection");
+const { bot } = require("../../connection");
 const {
   start_text,
   error_text,
@@ -13,8 +13,6 @@ let media_group_flag = [];
 
 const botMessage = bot.on("message", async (msg) => {
   const chatId = msg.chat.id;
-  const user_name = msg.chat.first_name + " " + msg.chat.last_name;
-  const nick_name = msg.chat.username;
   const text = msg.text;
   let media_group_id = msg.media_group_id;
 

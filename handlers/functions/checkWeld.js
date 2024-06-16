@@ -1,8 +1,8 @@
 const axios = require("axios");
-const { bot, pool, isDate } = require("../../connection");
+const { bot } = require("../../connection");
 require("dotenv").config();
 const fs = require("fs");
-const { error_text, undefined_check } = require("../../assets/text");
+const { error_text } = require("../../assets/text");
 const Jimp = require("jimp");
 
 async function get_image_array(image_path) {
@@ -36,33 +36,26 @@ async function get_image_array(image_path) {
 
 const check_photo = (chatId, photo) => {
 
-  let image_array = get_image_array(photo).then((image_array) => {
-    console.log(image_array);
-  });
-
   const data = {
-    url_photo: image_array,
+    input: photo,
   };
 
   const params = new URLSearchParams(data);
-
+  const headers = {
+    'x-node-id': 'bt1qmglkd3pm28062t3u',
+    'x-folder-id': 'b1g9h3dhkk2scq0lrtmf',
+    'Authorization': process.env.AUTH_KEY,
+  };
+  
   axios
     .post(process.env.API_URL, params.toString(), {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
+     headers
     })
     .then((res) => {
-      let text = res.data;
-      if (text) {
-        bot.sendMessage(chatId, text);
-      } else {
-        bot.sendMessage(chatId, undefined_check);
-      }
+      console.log(res.data);
     })
-    .catch((error) => {
+    .catch((err) => {
       console.log(err);
-      fs.appendFile("errors.txt", `${e}` + "\n", function (e) {});
       bot.sendMessage(chatId, error_text);
       return;
     });
